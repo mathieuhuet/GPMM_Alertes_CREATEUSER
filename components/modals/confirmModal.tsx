@@ -52,7 +52,7 @@ const ConfirmModal: FunctionComponent<Props> = (props) => {
             color={colors.orange}  
           />
           <LargeText
-            textStyle={{fontSize: 25, color: colors.tertiary, marginVertical: 10}}
+            textStyle={{fontSize: 25, color: colors.tertiary, marginVertical: 10, textAlign: 'center'}}
           >
             {props.message}
           </LargeText>
@@ -64,14 +64,14 @@ const ConfirmModal: FunctionComponent<Props> = (props) => {
               onPress={props.closeModal}
               textStyle={{fontSize: 20}}
             >
-              No
+              Non
             </RegularButton>
             <RegularButton
               style={{width: '40%'}}
               onPress={props.buttonHandler}
               textStyle={{fontSize: 20}}
             >
-              Yes
+              Oui
             </RegularButton>
 
           </View>

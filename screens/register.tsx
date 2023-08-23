@@ -14,6 +14,9 @@ import MessageBox from '../components/texts/messageBox';
 import RegularButton from '../components/buttons/regularButton';
 import { colors } from '../components/colors';
 import StyledCheckBox from '../components/inputs/styledCheckBox';
+import ConfirmModal from '../components/modals/confirmModal';
+import MessageModal from '../components/modals/messageModal';
+
 
 const Register: FunctionComponent = () => {
   const [message, setMessage] = useState('');
@@ -22,29 +25,52 @@ const Register: FunctionComponent = () => {
   const [items, setItems] = useState([
     {label: 'Sig&Com', value: 'sig'},
     {label: 'Bâtiments', value: 'bat'},
+    {label: "Agent d'Intervention", value: 'ai'},
+    {label: 'Service à la clientèle', value: 'sc'},
+    {label: 'Sûreté & Contrôle', value: 'sur'},
+    {label: 'Salle de contrôle', value: 'pcc'},
+    {label: 'Administration', value: 'adm'},
   ]);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [type, setType] = useState('');
+  const [headerText, setHeaderText] = useState('');
+  const [lowerMessage, setLowerMessage] = useState('');
 
-  const handleRegistration = async (credentials: any, setSubmitting: any) => {
+  const messageModal = (modalType: string, modalHeader: string, modalLower: string) => {
+    setType(modalType);
+    setHeaderText(modalHeader);
+    setLowerMessage(modalLower);
+    setShowMessageModal(true);
+  }
+
+  const handleRegistration = (credentials: any, setSubmitting: any) => {
     setMessage('');
     if (value === null) {
-      setMessage("Choisissez le département et le rôle de l'utilisateur.")
+      setShowConfirmModal(false);
+      messageModal('failure', "Oupsi", "Choisissez un département pour l'employer");
       setSubmitting(false);
     } else {
-      // call backend and move to next page if successful
       registerUser(credentials).then(result => {
-        setMessage('Utilisateur créer avec succès.')
+        setShowConfirmModal(false);
+        messageModal('success', "C'est bon.", "Utilisateur créé avec succès.");
         setSubmitting(false);
       }).catch(err => {
         if (err.message) {
-          setMessage(err.message);
+          setShowConfirmModal(false);
+          messageModal('failure', "Oupsi", err.message);
         }
         console.log(err);
         setSubmitting(false);
       });
     }
   }
+
+
   return (
-    <MainContainer>
+    <MainContainer
+      style={{paddingBottom: 0}}
+    >
       <RegularText textStyle={{marginBottom: 25}}>
         Créer un compte pour GPMM Alertes
       </RegularText>
@@ -160,6 +186,14 @@ const Register: FunctionComponent = () => {
               >
                 { message || ' ' }
               </MessageBox>
+              <ConfirmModal
+                modalVisible={showConfirmModal}
+                buttonHandler={handleSubmit}
+                closeModal={() => 
+                  setShowConfirmModal(false)
+                }
+                message='Êtes-vous sûre de vouloir donner des droits administrateur à cette utilisateur?'
+              />
               {isSubmitting && <RegularButton>
                 <ActivityIndicator
                   size="small"
@@ -167,7 +201,7 @@ const Register: FunctionComponent = () => {
                 />
               </RegularButton>}
               {!isSubmitting && <RegularButton
-                onPress={handleSubmit}
+                onPress={values.admin ? () => setShowConfirmModal(true) : handleSubmit}
               >
                 Créer Utilisateur
               </RegularButton>}
@@ -175,6 +209,14 @@ const Register: FunctionComponent = () => {
           )}
         </Formik>
       </KeyboardAvoidingContainer>
+      <MessageModal
+        buttonHandler={() => setShowMessageModal(false)}
+        message={lowerMessage}
+        headerText={headerText}
+        type={type}
+        buttonText='OK'
+        modalVisible={showMessageModal}
+      />
     </MainContainer>
   );
 }

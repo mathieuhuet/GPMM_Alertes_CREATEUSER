@@ -1,12 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import NotConnectedStack from './navigators/notConnectedStack';
-
-
+import Register from './screens/register';
 
 
 const App: FunctionComponent = () => {
   return (
-    <NotConnectedStack/>
+    <Register/>
   );
 }
 
