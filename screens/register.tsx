@@ -125,7 +125,7 @@ const Register: FunctionComponent = () => {
               setMessage('Remplissez tout les champs.');
               setSubmitting(false);
             } else {
-              handleRegistration({firstName: values.firstName, lastName: values.lastName, email: values.email.toLowerCase(), departement: value, role: values.role, admin: values.admin}, setSubmitting);
+              handleRegistration({firstName: values.firstName, lastName: values.lastName, email: values.email.toLowerCase(), department: value, role: values.role, admin: values.admin}, setSubmitting);
             }
           }}
         >
