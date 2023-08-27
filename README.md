@@ -1,6 +1,8 @@
-# FriendlyBets
+# GPMM_Alertes Create User
 
-FriendlyBets is a mobile app (iOS & Android) that keep track of the bets you make with your friends. Create an account, invite your friends to join your bets and keep track of all the bets you've made.
+This app let you create user for GPMM_Alertes
+
+It is a separate App for the network administrator so that no one can create accounts for employees other than him/her
 
 ## Getting Started
 
