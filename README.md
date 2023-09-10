@@ -12,6 +12,8 @@ afterward your run `npx expo install` and then to run the app you enter the comm
 
 This app can't work properly if you're not running [the GPMM_Alertes_server](https://github.com/mathieuhuet/GPMM_Alertes_server), don't forget to point the App toward [the GPMM_Alertes_server](https://github.com/mathieuhuet/GPMM_Alertes_server) IP and port.
 
+You need to create a `secret.js` file at the root of the project that export this variable : `GPMM_USER_API`
+
 ## Tech Stack
 
 The front-end framework is **React Native** and wouldn't been possible without **Expo**
